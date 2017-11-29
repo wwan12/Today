@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">awesome</string>
+    <string name="str_add_goal">新的事件</string>
+    <string name="str_add">完成</string>
+    <string name="str_img">图片| </string>
+    <string name="str_tack">拍照 </string>
+</resources>
