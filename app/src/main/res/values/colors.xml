@@ -3,4 +3,16 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#08ADEF</color>
+    <color name="textGary">#999999</color>
+    <color name="textBlackGary">#666666</color>
+    <color name="mainColor">#427CF9</color>
+    <color name="garyback">#eeeeee</color>
+    <color name="tMainColor">#50427cf9</color>
+    <color name="white">#ffffff</color>
+    <color name="strike_orange">#FAD093</color>
+    <color name="pink">#FFFAEE</color>
+    <color name="orange">#ff933b</color>
+    <color name="transparent_gray">#90000000</color>
+    <color name="room_status_blue">#E8F2FE</color>
+
 </resources>
