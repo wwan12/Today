@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidStudioProjects-Today.iml" filepath="$PROJECT_DIR$/AndroidStudioProjects-Today.iml" group="Today" />
+      <module fileurl="file://$PROJECT_DIR$/app/AndroidStudioProjects-Today-app.iml" filepath="$PROJECT_DIR$/app/AndroidStudioProjects-Today-app.iml" group="Today/app" />
+      <module fileurl="file://$PROJECT_DIR$/library/AndroidStudioProjects-Today-library.iml" filepath="$PROJECT_DIR$/library/AndroidStudioProjects-Today-library.iml" group="Today/library" />
       <module fileurl="file://$PROJECT_DIR$/Today.iml" filepath="$PROJECT_DIR$/Today.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/Today-app.iml" filepath="$PROJECT_DIR$/app/Today-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/Today-library.iml" filepath="$PROJECT_DIR$/library/Today-library.iml" />

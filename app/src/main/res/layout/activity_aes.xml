@@ -2,80 +2,98 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
-    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:background="@drawable/white_raid"
-        android:gravity="right"
-        android:orientation="vertical"
-        android:paddingLeft="21dp"
-        android:paddingRight="21dp">
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:padding="8dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/phone"
-            android:textColor="@color/textGary"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/login_phone_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:maxLength="11"
-            android:text=""
-            android:hint="@string/phone_hint"
-            android:inputType="phone" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/pwd"
-            android:textColor="@color/textGary"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/login_pwd_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="@string/pwd_hint"
-            android:inputType="textPassword" />
-
-        <CheckBox
-            android:id="@+id/login_reb_pwd"
+        <ImageView
+            android:id="@+id/bar_left_back"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:button="@drawable/radio_check"
-            android:checked="true"
-            android:text="@string/remember_password"
-            android:textColor="@color/textBlackGary" />
-
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            app:srcCompat="@mipmap/back_icon" />
 
         <TextView
-            android:id="@+id/login_enter"
-            android:layout_width="match_parent"
+            android:id="@+id/bar_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/text_raid"
+            android:layout_weight="1"
+            android:layout_marginRight="36dp"
             android:gravity="center"
-            android:padding="8dp"
-            android:text="@string/login"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:text="@string/key_manager"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
 
     </LinearLayout>
+        <include
+            android:id="@+id/main_key"
+            layout="@layout/item_key"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:text="@string/other_key"/>
+            <ListView
+                android:id="@+id/key_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:padding="4dp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/colorAccent"
+                android:text="@string/c_key"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:orientation="horizontal">
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="8dp"
+        android:background="@drawable/editview_bg"/>
+    <TextView
+        android:id="@+id/key_inp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_raid"
+        android:gravity="center"
+        android:layout_marginLeft="12dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="8dp"
+        android:enabled="false"
+        android:text="@string/inp"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+</LinearLayout>
+
+        </LinearLayout>
 
 </LinearLayout>
