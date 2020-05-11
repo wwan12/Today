@@ -36,6 +36,7 @@
             android:layout_toRightOf="@+id/radio_button"
             android:ellipsize="end"
             android:lines="1"
+            android:maxLength="8"
             android:textColor="@color/colorTexts"
             android:textSize="@dimen/text_size" />
 

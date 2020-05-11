@@ -17,7 +17,7 @@
         android:background="@color/colorTransparent"
         android:enabled="false"
         android:hint="@string/str_add_goal"
-        android:paddingLeft="5dp"
+        android:paddingLeft="4dp"
         android:singleLine="true"
         android:textColor="@color/colorTexts"
         android:textColorHint="@color/colorGrey"

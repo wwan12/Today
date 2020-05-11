@@ -1,4 +1,4 @@
-package com.yalantis.beamazingtoday.sample.cache;
+package com.yalantis.beamazingtoday.sample.expand;
 
 /**
  * Created by lenovo on 2017/11/28.
