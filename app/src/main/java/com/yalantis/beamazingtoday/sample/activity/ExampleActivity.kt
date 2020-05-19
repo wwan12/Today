@@ -14,15 +14,22 @@ import android.support.v7.widget.Toolbar
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
 import android.widget.TextView
+import com.aisino.tool.http.Http
 
 import com.yalantis.beamazingtoday.interfaces.AnimationType
 import com.yalantis.beamazingtoday.interfaces.BatModel
 import com.yalantis.beamazingtoday.listeners.BatListener
 import com.yalantis.beamazingtoday.listeners.OnItemClickListener
 import com.yalantis.beamazingtoday.listeners.OnOutsideClickedListener
+import com.yalantis.beamazingtoday.sample.AES_KEY
 import com.yalantis.beamazingtoday.sample.Goal
 import com.yalantis.beamazingtoday.sample.R
 import com.yalantis.beamazingtoday.sample.expand.ACache
+import com.yalantis.beamazingtoday.sample.expand.generateKey
+import com.yalantis.beamazingtoday.sample.expand.toast
+import com.yalantis.beamazingtoday.sample.service.DELECT_YUN
+import com.yalantis.beamazingtoday.sample.service.QUERY_YUN
+import com.yalantis.beamazingtoday.sample.user
 import com.yalantis.beamazingtoday.ui.adapter.BatAdapter
 import com.yalantis.beamazingtoday.ui.animator.BatItemAnimator
 import com.yalantis.beamazingtoday.ui.callback.BatCallback
@@ -76,7 +83,10 @@ class ExampleActivity : AppCompatActivity(), BatListener, OnItemClickListener, O
         mAdapter=BatAdapter(mGoals, this, mAnimator).setOnItemClickListener(this).setOnOutsideClickListener(this)
         bat_recycler_view.view.setAdapter(mAdapter)
 
+        AES_KEY=generateKey()!!
+
         init()
+        initYUN()
     }
 
     private fun init() {
@@ -92,6 +102,26 @@ class ExampleActivity : AppCompatActivity(), BatListener, OnItemClickListener, O
         }
     }
 
+    fun initYUN(): Unit {
+        Http.post{
+           url= QUERY_YUN
+            "id"- user.id
+            success {
+                if (it.get<String>("code").equals("0")){
+                    for (yun in it.get<ArrayList<MutableMap<String,Any>>>("data")){
+                        val goal = Goal(yun["text"].toString())
+                        goal.uid=yun["Uid"].toString()
+                        goal.hasImg =yun["hasImg"].toString().equals("1")
+//                                (yun["images"] as ArrayList<String>).
+                        mGoals!!.add(goal)
+                    }
+                    mAdapter?.notifyDataSetChanged()
+                }
+            }
+            fail { "网络错误".toast(this@ExampleActivity)  }
+        }
+    }
+
     override fun add(string: String) {
         val goal = Goal(string)
         if (imgCache != null && imgCache!!.size != 0) {
@@ -104,6 +134,10 @@ class ExampleActivity : AppCompatActivity(), BatListener, OnItemClickListener, O
     }
 
     override fun delete(position: Int) {
+        val g= mGoals!![position]
+        if (!g.uid.equals("")){
+            deleteYUN(g.uid)
+        }
         deleteRefresh(position)
         mGoals!!.removeAt(position)
         mAdapter!!.notify(AnimationType.REMOVE, position)
@@ -131,6 +165,7 @@ class ExampleActivity : AppCompatActivity(), BatListener, OnItemClickListener, O
     override fun onClick(item: BatModel, position: Int) {
         val intent = Intent(this, DesActivity::class.java)
         intent.putExtra(DesActivity.NUMBER, position)
+        intent.putExtra(DesActivity.UID, mGoals!![position].uid)
         startActivity(intent)
     }
 
@@ -219,6 +254,21 @@ class ExampleActivity : AppCompatActivity(), BatListener, OnItemClickListener, O
                     j++
                 }
             }
+        }
+    }
+
+    fun deleteYUN(uid:String){
+        Http.post{
+            url= DELECT_YUN
+            "id"- user.id
+            "uid"-uid
+            success {
+                if (it.get<String>("code").equals("0")){
+
+                }
+                it.get<String>("msg").toast(this@ExampleActivity)
+            }
+            fail { "网络错误".toast(this@ExampleActivity)  }
         }
     }
 

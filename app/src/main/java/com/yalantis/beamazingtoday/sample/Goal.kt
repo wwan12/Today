@@ -11,9 +11,12 @@ import java.util.ArrayList
  */
 class Goal(var name: String?) : BatModel {
 
+
     private var isChecked: Boolean = false
 
     var hasImg: Boolean = false
+
+    var uid=""
 
     var imgs = ArrayList<Bitmap>()
         set(imgs) {
@@ -42,5 +45,7 @@ class Goal(var name: String?) : BatModel {
     override fun getText(): String? {
         return name
     }
-
+    override fun getUID(): String {
+        return uid
+    }
 }

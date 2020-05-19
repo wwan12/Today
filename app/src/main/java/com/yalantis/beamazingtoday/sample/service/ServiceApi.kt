@@ -1,12 +1,15 @@
 package com.yalantis.beamazingtoday.sample.service
 
-import android.app.Activity
-import com.aisino.tool.http.Http
-import com.aisino.tool.http.SuccessData
-import com.yalantis.beamazingtoday.sample.expand.toast
 
-val BASEURL=""
-val LOGIN=BASEURL+""
+val BASEURL="http://192.168.0.109:51872/"
+
+val LOGIN=BASEURL+"UserInfoes/Login"
+
+val UP_YUN=BASEURL+"UserDatas/uploadData"
+
+val DELECT_YUN=BASEURL+"UserDatas/deleteData"
+
+val QUERY_YUN=BASEURL+"UserDatas/getUserDataList"
 
 
 //fun Activity.login(user:String, pwd: String, scall:(s:SuccessData)->Unit): Unit {

@@ -13,6 +13,6 @@ public interface BatModel {
 
     boolean hasImg();
 
-
+    String getUID();
 
 }
