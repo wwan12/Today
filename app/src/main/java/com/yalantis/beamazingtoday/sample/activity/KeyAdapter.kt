@@ -7,11 +7,14 @@ import android.widget.BaseAdapter
 import com.yalantis.beamazingtoday.sample.R
 import kotlinx.android.synthetic.main.item_key.view.*
 
-class KeyAdapter(val activity: AppCompatActivity, val keyList: ArrayList<AESActivity.Key>):BaseAdapter() {
+class KeyAdapter(val activity: AppCompatActivity, val keyList: ArrayList<AESActivity.Key>,val relClick:(i:Int)->Unit,val outClick:(i:Int)->Unit,val deleteClick:(i:Int)->Unit):BaseAdapter() {
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
         val view= activity.layoutInflater.inflate(R.layout.item_key, p2,false)
         view.key_name.text=keyList[p0].name
         view.key_v.text=keyList[p0].key
+        view.out.setOnClickListener { outClick(p0) }
+        view.delete.setOnClickListener { deleteClick(p0) }
+        view.rel.setOnClickListener { relClick(p0) }
         return view
     }
 

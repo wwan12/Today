@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:gravity="center"
+        android:text="@string/key_name"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+    <EditText
+        android:id="@+id/log_input_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:padding="4dp"
+        android:background="@drawable/editview_bg"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:maxLength="10"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/log_name_enter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:gravity="center"
+        android:text="@string/enter"
+        android:textColor="@color/mainColor"
+        android:textSize="20sp" />
+</LinearLayout>

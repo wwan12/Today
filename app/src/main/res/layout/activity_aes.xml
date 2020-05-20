@@ -56,6 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
             <TextView
+                android:id="@+id/c_key"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
@@ -69,6 +70,7 @@
     android:layout_margin="16dp"
     android:orientation="horizontal">
     <EditText
+        android:id="@+id/key_inp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -78,7 +80,7 @@
         android:paddingBottom="8dp"
         android:background="@drawable/editview_bg"/>
     <TextView
-        android:id="@+id/key_inp"
+        android:id="@+id/key_inp_enter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/text_raid"

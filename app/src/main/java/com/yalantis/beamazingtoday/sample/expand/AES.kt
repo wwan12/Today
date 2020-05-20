@@ -35,7 +35,10 @@ private fun getRawKey(seed: ByteArray): ByteArray {
     //for android
     var sr: SecureRandom? = null
     // 在4.2以上版本中，SecureRandom获取方式发生了改变
-    if (android.os.Build.VERSION.SDK_INT >= 19) {
+    if (android.os.Build.VERSION.SDK_INT >= 24){
+        sr = SecureRandom.getInstance(SHA1PRNG)
+    }
+    else if (android.os.Build.VERSION.SDK_INT >= 19) {
         sr = SecureRandom.getInstance(SHA1PRNG, "Crypto")
     } else {
         sr = SecureRandom.getInstance(SHA1PRNG)
@@ -52,12 +55,12 @@ private fun getRawKey(seed: ByteArray): ByteArray {
 /*
      * 加密
      */
-fun encrypt(key: String, cleartext: String): String? {
-    if (TextUtils.isEmpty(cleartext)) {
-        return cleartext
+fun String.encrypt(key: String): String? {
+    if (TextUtils.isEmpty(this)) {
+        return this
     }
     try {
-        val result = encrypt(key, cleartext.toByteArray())
+        val result = encrypt(key, this.toByteArray())
         return toHex(Base64.encode(result,Base64.DEFAULT))
     } catch (e: Exception) {
         e.printStackTrace()
@@ -80,12 +83,12 @@ private fun encrypt(key: String, clear: ByteArray): ByteArray {
 /*
      * 解密
      */
-fun decrypt(key: String, encrypted: String): String? {
-    if (TextUtils.isEmpty(encrypted)) {
-        return encrypted
+fun String.decrypt(key: String): String? {
+    if (TextUtils.isEmpty(this)) {
+        return this
     }
     try {
-        val enc = Base64.decode(encrypted,Base64.DEFAULT)
+        val enc = Base64.decode(this,Base64.DEFAULT)
         val result = decrypt(key, enc)
         return String(result)
     } catch (e: Exception) {
