@@ -21,15 +21,10 @@ import com.yalantis.beamazingtoday.interfaces.BatModel
 import com.yalantis.beamazingtoday.listeners.BatListener
 import com.yalantis.beamazingtoday.listeners.OnItemClickListener
 import com.yalantis.beamazingtoday.listeners.OnOutsideClickedListener
-import com.yalantis.beamazingtoday.sample.AES_KEY
-import com.yalantis.beamazingtoday.sample.Goal
-import com.yalantis.beamazingtoday.sample.R
-import com.yalantis.beamazingtoday.sample.expand.ACache
-import com.yalantis.beamazingtoday.sample.expand.generateKey
-import com.yalantis.beamazingtoday.sample.expand.toast
+import com.yalantis.beamazingtoday.sample.*
+import com.yalantis.beamazingtoday.sample.expand.*
 import com.yalantis.beamazingtoday.sample.service.DELECT_YUN
 import com.yalantis.beamazingtoday.sample.service.QUERY_YUN
-import com.yalantis.beamazingtoday.sample.user
 import com.yalantis.beamazingtoday.ui.adapter.BatAdapter
 import com.yalantis.beamazingtoday.ui.animator.BatItemAnimator
 import com.yalantis.beamazingtoday.ui.callback.BatCallback
@@ -84,7 +79,14 @@ class ExampleActivity : AppCompatActivity(), BatListener, OnItemClickListener, O
         bat_recycler_view.view.setAdapter(mAdapter)
 
         AES_KEY=generateKey()!!
-
+        val cmainKey= ACache.get(this).getAsObject(AESActivity.MAIN_KEY)
+        if (cmainKey!=null){
+            mainKey.key=(cmainKey as AESActivity.Key).key
+            mainKey.name=(cmainKey as AESActivity.Key).name
+        }else{
+            mainKey.key= generateKey()!!
+            mainKey.name="主密钥"
+        }//如果没有缓存主密钥 自动补上
         init()
         initYUN()
     }
@@ -109,10 +111,17 @@ class ExampleActivity : AppCompatActivity(), BatListener, OnItemClickListener, O
             success {
                 if (it.get<String>("code").equals("0")){
                     for (yun in it.get<ArrayList<MutableMap<String,Any>>>("data")){
-                        val goal = Goal(yun["text"].toString())
+                        val goal = Goal(yun["text"].toString().decrypt(mainKey.key))
                         goal.uid=yun["Uid"].toString()
                         goal.hasImg =yun["hasImg"].toString().equals("1")
-//                                (yun["images"] as ArrayList<String>).
+                        if ( goal.hasImg){
+                            val tImgs=  yun["images"].toString().decrypt(mainKey.key)!!.split(",")
+                            val bImgs=ArrayList<Bitmap>()
+                            for (t in tImgs){
+                                bImgs.add(t.base64ToBitmap())
+                            }
+                            goal.imgs=bImgs
+                        }
                         mGoals!!.add(goal)
                     }
                     mAdapter?.notifyDataSetChanged()
@@ -166,6 +175,7 @@ class ExampleActivity : AppCompatActivity(), BatListener, OnItemClickListener, O
         val intent = Intent(this, DesActivity::class.java)
         intent.putExtra(DesActivity.NUMBER, position)
         intent.putExtra(DesActivity.UID, mGoals!![position].uid)
+        intent.putExtra(DesActivity.GOAL, mGoals!![position] as Goal)
         startActivity(intent)
     }
 

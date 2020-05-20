@@ -19,6 +19,7 @@ import android.text.Layout
 import android.text.StaticLayout
 import android.graphics.Typeface
 import android.text.TextPaint
+import android.util.Base64
 import android.widget.ImageView
 import java.nio.channels.FileChannel
 import kotlin.concurrent.thread
@@ -488,5 +489,44 @@ fun Bitmap.copy(path:String): Bitmap {
     return destBmp
 }
 
+/**
+ * base64转为bitmap
+ *
+ * @param base64Data
+ * @return
+ */
+fun String.base64ToBitmap(): Bitmap {
+    val bytes = Base64.decode(this, Base64.DEFAULT)
+    return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+}
+fun Bitmap.bitmapToBase64(): String? {
+    var result: String? = null
+    var baos: ByteArrayOutputStream? = null
+    try {
+        if (this != null) {
+            baos = ByteArrayOutputStream()
+            this.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+
+            baos.flush()
+            baos.close()
+
+            val bitmapBytes = baos.toByteArray()
+            result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT)
+        }
+    } catch (e: IOException) {
+        e.printStackTrace()
+    } finally {
+        try {
+            if (baos != null) {
+                baos.flush()
+                baos.close()
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+    }
+    return result
+}
 
 

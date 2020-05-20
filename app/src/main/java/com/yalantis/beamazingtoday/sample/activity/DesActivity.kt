@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.aisino.tool.http.Http
 import com.yalantis.beamazingtoday.sample.AES_KEY
+import com.yalantis.beamazingtoday.sample.Goal
 
 import com.yalantis.beamazingtoday.sample.R
 import com.yalantis.beamazingtoday.sample.activity.ExampleActivity.Companion.HASIMGS
@@ -54,7 +55,12 @@ class DesActivity : Activity() {
         }
 
         updata_to_w.setOnClickListener {
-            upYUN()
+            if (uid.equals("")){
+                upYUN()
+            }else{
+                "该信息已经上传至云".toast(this)
+            }
+
         }
 
     }
@@ -90,15 +96,35 @@ class DesActivity : Activity() {
 
 
     fun initYUN(): Unit {
-        
+        val goal =intent.getSerializableExtra(GOAL) as Goal
+        for (img in goal.imgs){
+            val imageView = ImageView(this)
+            imageView.minimumWidth = 640
+            imageView.minimumHeight = 640
+            imageView.setPadding(16, 16, 16, 16)
+            imageView.scaleType = ImageView.ScaleType.FIT_XY
+            des_list.addView(imageView)
+            imageView.setImageBitmap(img)
+        }
+        val textView = TextView(this)
+        textView.text = goal.text
+        textView.textSize = 18f
+        textView.setAllCaps(true)
+        textView.gravity = Gravity.CENTER_HORIZONTAL
+        des_list.addView(textView)
+
     }
 
     fun upYUN(): Unit {
+        var pImages=""
+        for (image in images){
+            pImages+="$image,"
+        }
         Http.post{
             url= UP_YUN
             "id"-user.id
             "text"-text.encrypt(AES_KEY)
-            "images"-images.toString()
+            "images"-pImages
             success {
                 if (it.get<String>("code").equals("0")){
                     ACache.get(this@DesActivity).remove(position.toString() + "")
@@ -114,46 +140,7 @@ class DesActivity : Activity() {
     companion object {
         val NUMBER = "NUMBER"
         val UID="UID"
+        val GOAL="GOAL"
     }
 
-    fun Bitmap.bitmapToBase64(): String? {
-        var result: String? = null
-        var baos: ByteArrayOutputStream? = null
-        try {
-            if (this != null) {
-                baos = ByteArrayOutputStream()
-                this.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-
-                baos.flush()
-                baos.close()
-
-                val bitmapBytes = baos.toByteArray()
-                result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT)
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } finally {
-            try {
-                if (baos != null) {
-                    baos.flush()
-                    baos.close()
-                }
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
-        }
-        return result
-    }
-
-    /**
-     * base64转为bitmap
-     *
-     * @param base64Data
-     * @return
-     */
-    fun String.base64ToBitmap(): Bitmap {
-        val bytes = Base64.decode(this, Base64.DEFAULT)
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-    }
 }

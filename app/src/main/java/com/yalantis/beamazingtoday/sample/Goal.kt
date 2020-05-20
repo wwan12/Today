@@ -3,13 +3,14 @@ package com.yalantis.beamazingtoday.sample
 import android.graphics.Bitmap
 
 import com.yalantis.beamazingtoday.interfaces.BatModel
+import java.io.Serializable
 
 import java.util.ArrayList
 
 /**
  * Created by lenovo on 22.08.16.
  */
-class Goal(var name: String?) : BatModel {
+class Goal(var name: String?) : BatModel,Serializable {
 
 
     private var isChecked: Boolean = false
