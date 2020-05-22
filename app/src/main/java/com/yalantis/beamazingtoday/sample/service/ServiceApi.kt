@@ -1,7 +1,7 @@
 package com.yalantis.beamazingtoday.sample.service
 
 
-val BASEURL="http://192.168.0.109:51872/"
+val BASEURL="https://192.168.0.109:44328/"
 
 val LOGIN=BASEURL+"UserInfoes/Login"
 

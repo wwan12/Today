@@ -3,9 +3,6 @@ package com.yalantis.beamazingtoday.sample.activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.widget.PopupWindow
-import java.util.*
-import android.os.Environment
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import com.aisino.tool.http.Http
@@ -17,10 +14,11 @@ import com.yalantis.beamazingtoday.sample.expand.toast
 import com.yalantis.beamazingtoday.sample.service.LOGIN
 import com.yalantis.beamazingtoday.sample.user
 import kotlinx.android.synthetic.main.activity_login.*
-import java.io.File
-import java.io.FileOutputStream
-import java.io.FileInputStream
 import java.lang.Exception
+import android.annotation.SuppressLint
+import java.security.SecureRandom
+import java.security.cert.X509Certificate
+import javax.net.ssl.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -41,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
             login_pwd_et.setText("")
         }
         signPermissions { }
+       
     }
 
 
@@ -93,5 +92,7 @@ class LoginActivity : AppCompatActivity() {
 
         }
     }
+
+
 
 }

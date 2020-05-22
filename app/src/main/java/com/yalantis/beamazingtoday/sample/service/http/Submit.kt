@@ -19,6 +19,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import com.google.gson.JsonArray
 import com.yalantis.beamazingtoday.sample.BuildConfig.DEBUG
 import com.yalantis.beamazingtoday.sample.expand.loge
+import com.yalantis.beamazingtoday.sample.service.http.SSL
 import okio.ByteString
 import org.json.JSONArray
 import java.util.*
@@ -26,6 +27,9 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import okhttp3.RequestBody
 import java.lang.Exception
+import java.security.cert.X509Certificate
+import javax.net.ssl.SSLSocketFactory
+import javax.net.ssl.X509TrustManager
 
 
 /**
@@ -213,7 +217,13 @@ class Submit {
     }
 
     private fun post(): Unit {
-        val okHttpClient = OkHttpClient.Builder().cookieJar(cookjar).connectTimeout(outTime, TimeUnit.SECONDS)
+        val okHttpClient = OkHttpClient.Builder().cookieJar(cookjar).connectTimeout(outTime, TimeUnit.SECONDS).sslSocketFactory(SSL.sslSocketFactory,object :X509TrustManager{
+            override fun getAcceptedIssuers(): Array<X509Certificate> {
+                return arrayOf<X509Certificate>()
+            }
+            override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {}
+            override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {}
+        }).hostnameVerifier(SSL.hostnameVerifier)
         val build = FormBody.Builder()
         url.loge("post")
         for (p in _params) {
