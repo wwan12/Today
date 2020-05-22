@@ -13,6 +13,7 @@ import com.yalantis.beamazingtoday.sample.R
 import com.yalantis.beamazingtoday.sample.expand.ACache
 import com.yalantis.beamazingtoday.sample.expand.generateKey
 import com.yalantis.beamazingtoday.sample.expand.toast
+import com.yalantis.beamazingtoday.sample.mainKey
 import kotlinx.android.synthetic.main.activity_aes.*
 import kotlinx.android.synthetic.main.dialog_team_name.view.*
 import kotlinx.android.synthetic.main.item_key.view.*
@@ -22,8 +23,6 @@ import java.io.Serializable
 class AESActivity:AppCompatActivity() {
 
     val keys=ArrayList<Key>()
-
-    var mainKey=Key("主密钥",generateKey()!!)
 
     val rel={ i:Int->relKey(i) }
     val out={ i:Int-> outKey(i)}
